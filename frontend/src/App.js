@@ -5,7 +5,7 @@ import Header from './components/Header'
 import HomeScreen from './screens/HomeScreen'
 import ProductScreen from './screens/ProductScreen'
 
-import { Container, Row } from 'react-bootstrap'
+import { Container } from 'react-bootstrap'
 
 
 const App = () => {
@@ -14,7 +14,6 @@ const App = () => {
     <Header />
     <main className="py-3">
       <Container>
-      <h1>Welcome to COMPRAONLINE &copy;</h1>
         <Route path='/' component={HomeScreen} exact />
         <Route path='/product/:id' component={ProductScreen} />
       </Container>
