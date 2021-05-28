@@ -36,7 +36,7 @@ const ProductScreen = ({ history, match }) => {
 	return (
 		<>
 			<Link className='btn btn-light my-3' to='/'>
-				Go Back
+				Volver a la Pagina Principal
 			</Link>
 			{loading ? (
 				<Loader />
@@ -58,7 +58,7 @@ const ProductScreen = ({ history, match }) => {
 									text={`${product.numReviews} reviews`}
 								/>
 							</ListGroup.Item>
-							<ListGroup.Item>Price: ${product.price}</ListGroup.Item>
+							<ListGroup.Item>Precio: $ {product.price}</ListGroup.Item>
 							<ListGroup.Item>
 								Description: {product.description}
 							</ListGroup.Item>
@@ -69,9 +69,9 @@ const ProductScreen = ({ history, match }) => {
 							<ListGroup variant='flush'>
 								<ListGroup.Item>
 									<Row>
-										<Col>Price:</Col>
+										<Col>Precio: $</Col>
 										<Col>
-											<strong>${product.price}</strong>
+											<strong>{product.price}</strong>
 										</Col>
 									</Row>
 								</ListGroup.Item>
@@ -79,7 +79,7 @@ const ProductScreen = ({ history, match }) => {
 								<ListGroup.Item>
 									<Row>
 										<Col>Status:</Col>
-										<Col>{product.count > 0 ? 'In stock' : 'Out of stock'}</Col>
+										<Col>{product.count > 0 ? 'En Stock' : 'Sin Stock'}</Col>
 									</Row>
 								</ListGroup.Item>
 								{product.countInStock > 0 && (
