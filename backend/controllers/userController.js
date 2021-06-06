@@ -1,39 +1,39 @@
 import asyncHandler from 'express-async-handler'
-import User from "../models/userModel";
+import generateToken from '../utils/generateToken.js'
+import User from '../models/userModel.js'
+
 
 //@desc     Auth user & get token
 //@route    POST /api/users/login
 //@access   Public
-const authUser = asyncHandler(async (req, res) => {
-	const { email, password } = req.body
+const authUser = asyncHandler(async(req, res) => {
+    const { email, password } = req.body
 
-	const user = await User.findOne({ email })
+    const user = await User.findOne({ email })
 
-	if (user && (await user.matchPassword(password))) {
-		res.json({
-			_id: user._id,
-			name: user.name,
-			email: user.email,
-			isAdmin: user.isAdmin,
-			token: null
-		})
-	} else {
-		res.status(401)
-		throw new Error('Invalid email or password')
-
-	}
-
+    if (user && (await user.matchPassword(password))) {
+        res.json({
+            _id: user._id,
+            name: user.name,
+            email: user.email,
+            isAdmin: user.isAdmin,
+            token: generateToken(user._id),
+        })
+    } else {
+        res.status(401)
+        throw new Error('Email o password invalido')
+    }
 })
 
 
 //@desc     Auth user & get token
 //@route    POST /api/users/profile
 //@access   Public
-const getUserProfile = asyncHandler(async (req, res) => {
-    
+const getUserProfile = asyncHandler(async(req, res) => {
+
     const user = await User.findById(req.user._id)
 
-    if(user) {
+    if (user) {
         res.json({
             _id: user._id,
             name: user.name,
@@ -53,12 +53,12 @@ const getUserProfile = asyncHandler(async (req, res) => {
 //@desc     Register new user
 //@route    POST /api/users
 //@access   Public
-const registerUser = asyncHandler(async (req, res) => {
-    const { name, email, password} = req.body
+const registerUser = asyncHandler(async(req, res) => {
+    const { name, email, password } = req.body
 
-    const userExists= await User.findOne({email})
+    const userExists = await User.findOne({ email })
 
-    if (userExists){
+    if (userExists) {
         res.status(400)
         throw new Error('usuario ya existe')
     }
@@ -77,7 +77,7 @@ const registerUser = asyncHandler(async (req, res) => {
             isAdmin: user.isAdmin,
             token: generateToken(user._id),
         })
-    }else{
+    } else {
         res.status(400)
         throw new Error('datos invalidos de usuario')
     }
